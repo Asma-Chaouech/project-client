@@ -1,0 +1,116 @@
+/*-------------     footer      --------------*/
+footer {
+    background-color: orange; /* Change the background color to orange */
+    position: relative;
+    z-index: 10;
+}
+
+footer p {
+    font-size: 16px;
+  }
+  .footer-description h2 {
+      color: white;
+      font-weight: bold;
+      font-size: 30px;
+      width: 75%;
+     
+  }
+  .footer-description p{
+      color: #cfcfcf;
+      font-size: 16px;
+      width: 80%;
+  }
+  .menu h4{
+      font-size: 24px;
+      text-transform: uppercase;
+      color: #787878;
+      font-weight: bold;
+      margin: 0;
+      padding-bottom: 25px;
+  }
+  
+  ul.footer-menu li{
+      padding-top: 20px;
+  }
+  ul.footer-menu li a{
+      font-size: 16px;
+      color: #CFCFCF;
+      text-transform: capitalize;
+  }
+  ul.footer-menu li a i{
+      padding-left: 20px;
+  }
+  .footer-location {
+      display: flex;
+      align-items: baseline;
+  }
+  .footer-location i {
+      color: #787878;
+      font-size: 18px;
+      padding-right: 15px;
+  }
+  .footer-location p{
+      color: #CFCFCF;
+  }
+  .footer-location {
+      display: flex;
+      align-items: baseline;
+      padding-top: 10px;
+      padding-bottom: 20px;
+      border: 1px solid #787878;
+      border-top: 0;
+      border-left: 0;
+      border-right: 0;
+  }
+  .menu.contacts a i{
+      color: #787878;
+      font-size: 18px;
+      padding-right: 15px;
+  }
+  .menu.contacts a {
+      color: #CFCFCF;
+      font-size: 16px;
+      display: block;
+      padding-top: 20px;
+  }
+  ul.social-media li {
+      margin-right: 20px;
+  }
+  ul.social-media {
+      display: flex;
+      padding: 40px 0;
+  }
+  ul.social-media li a i{
+      height: 40px;
+      width: 40px;
+      border-radius: 40px;
+      border: 1px solid #CFCFCF;
+      color: #CFCFCF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  ul.social-media li a i:hover {
+      border: 1px #f29f05;
+      color: white;
+  }
+  .footer-two {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 25px;
+      margin-top: 101px;
+      border: 1px solid #787878;
+      border-bottom: 0;
+      border-left: 0;
+      border-right: 0;
+      padding-bottom: 25px;
+  }
+  .footer-two a{
+      color: #787878;
+      font-size: 14px;
+      padding-left: 20px;
+  }
+  .footer-two p{
+      font-size: 14px;
+  }

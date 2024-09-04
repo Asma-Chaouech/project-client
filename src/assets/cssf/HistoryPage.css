@@ -1,0 +1,120 @@
+/* HistoryPage.css */
+.history-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #fff8f0; /* Couleur de fond douce */
+  }
+  .history-header {
+    margin: 20px 0;
+  }
+  
+  .history-header h4 {
+    font-size: 1.5em;
+    color: #333; /* Couleur du texte */
+    text-align: center; /* Centrer le texte */
+  }
+  
+  h4 {
+    color: #ff6600; /* Couleur orange */
+    margin-bottom: 20px;
+  }
+  
+  .history-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  /* Enlarge text in the table headers and cells */
+.history-table th, .history-table td {
+  font-size: 15px; /* Increase font size */
+  padding: 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+  background-color: #fff; /* Keep white background for cells */
+}
+
+.history-table th {
+  background-color: #ffcc99; /* Keep the light orange color for headers */
+}
+
+.history-table td {
+  background-color: #fff; /* Ensure background is consistent for cells */
+}
+
+  .details-button {
+    background-color: #ff6600; /* Orange vif */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .details-button:hover {
+    background-color: #e65c00; /* Orange plus foncé pour le survol */
+  }
+  
+  .order-details {
+    background-color: #fff3e6; /* Couleur de fond des détails */
+  }
+  
+  .item-detail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .item-image {
+    width: 80px;
+    height: 80px;
+    margin-right: 15px;
+    border-radius: 4px;
+  }
+  
+  .item-detail p {
+    margin: 0;
+    color: #333; /* Texte de couleur sombre */
+  }
+  
+  .item-detail p strong {
+    color: #ff6600; /* Couleur orange pour les labels */
+  }
+  
+  .no-orders {
+    color: #ff4500; /* Orange-rouge pour le message "Aucune commande trouvée" */
+    font-weight: bold;
+    font-size: 16px;
+  }
+  /* HistoryPage.css */
+
+/* Style pour les détails des articles */
+.item-detail {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff3e6; /* Fond des détails */
+  }
+  
+  .item-image {
+    width: 80px;
+    height: 80px;
+    margin-right: 15px;
+    border-radius: 4px;
+    float: left;
+  }
+  
+  .item-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .item-info p {
+    margin: 5px 0;
+  }
+  
+  .item-info p strong {
+    color: #ff6600; /* Couleur orange pour les labels */
+  }
+  

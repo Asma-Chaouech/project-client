@@ -1,0 +1,359 @@
+:root {
+  --primary-text: #555; 
+  --background-light: #f9f9f9; 
+  --background-dark: #ffffff; 
+  --border-color: #FF9A40; /* Couleur de bordure */
+  --hover-background: #FF9A40; /* Couleur de fond au survol */
+  --button-background: #ffffff; /* Couleur de fond des boutons */
+  --button-hover-background: #FF9A40; /* Couleur de fond des boutons au survol */
+  --button-active-background: #FF9A40; /* Couleur de fond des boutons actif */
+  --icon-color: #ffd700; /* Couleur des icônes */
+  --border-radius: 12px;
+  --spacing: 16px;
+  --input-border-color: #ddd; /* Couleur des bordures des inputs */
+  --input-focus-border-color: #ff8c00; /* Couleur de la bordure des inputs au focus */
+  --font-size-base: 18px; /* Taille de texte de base pour le corps */
+  --font-size-large: 24px; /* Taille de texte pour les titres et éléments importants */
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  font-size: var(--font-size-base); 
+  color: var(--primary-text);
+  background-color:white;
+  margin: 0;
+  padding: 0;
+}
+
+.body-text{
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.profile-page {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: var(--spacing);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+  min-height: 520px;
+  font: inherit;
+  font-family: inherit;
+  font-style: inherit; 
+    font-weight: inherit;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+}
+
+#BT{
+    background-color: #ffffff;
+    color: #FF9A40;
+    border: 1px solid #FF9A40;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  
+#BT:hover{
+    background-color: #FF9A40;
+    color: #ffffff;
+}
+
+.def{
+  font-size: 15px;
+  color: black;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.profile-header {
+  margin-bottom: var(--spacing);
+  text-align: center;
+}
+
+.profile-left {
+  border-right: none;
+}
+
+.profile-header h1 {
+  font-size: var(--font-size-large); 
+  margin: 0;
+  color: var(--primary-text);
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+  width: 50%;
+  justify-content: center;
+  margin-left: 25%;
+}
+.profile-right{
+  width: 50%;
+  justify-content: center;
+  margin-left: 25%;
+}
+
+.profile-item {
+  display: flex;
+  align-items: center;
+  background-color: var(--background-dark);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing);
+}
+
+.profile-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: var(--spacing);
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.profile-info .title {
+  color: var(--primary-text);
+  font: inherit;
+  font-family: inherit;
+  font-style: inherit; 
+    font-weight: inherit;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+input[type="text"],
+input[type="email"] {
+  width: 100%;
+  padding: var(--spacing);
+  border: 1px solid var(--input-border-color);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base); /* Taille du texte pour les inputs */
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+  border-color: var(--input-focus-border-color);
+  outline: none;
+}
+
+.profile-actions {
+  display: flex;
+  gap: var(--spacing);
+  justify-content: center;
+  margin-top: var(--spacing);
+}
+
+button.button {
+  background-color: #ffffff;
+  color: #FF9A40;
+  border: 1px solid #FF9A40;
+  border-radius: 8px;
+  padding: var(--spacing);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  font-size: var(--font-size-base);
+}
+
+button.button:hover {
+  background-color: #FF9A40;
+  color: #ffffff;
+}
+
+button.button:active {
+  background-color: var(--button-active-background);
+  transform: scale(0.98);
+}
+
+.error,
+.success {
+  text-align: center;
+  font-weight: bold;
+  padding: var(--spacing);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base); /* Taille du texte pour les messages d'erreur et de succès */
+}
+
+.error {
+  color:red; 
+}
+
+.success {
+  color: green; /* Couleur verte pour les succès */
+}
+.delete-button {
+  color: white; /* Text color */
+  background-color: rgb(0, 0, 0); /* Background color */
+  border: none; /* Remove default border */
+  padding: 5px 10px; /* Adjust padding */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  float: right; /* Align to the right */
+  margin-left: 10px; /* Space between button and address text */
+}
+
+.delete-button:hover {
+  background-color: darkred; /* Darker shade on hover */
+}
+
+.profile-page {
+  display: flex;
+  flex-direction: row;
+}
+
+.profile-container {
+  flex: 1; 
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto; 
+}
+
+.profile-left, .profile-right {
+  flex: 1;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-item img {
+  margin-right: 20px;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.selected-location {
+  margin-top: 20px;
+}
+
+.map-container {
+  margin-top: 20px;
+}
+
+.addenregis{
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+#supprime{
+  display: flex;
+  background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 5px 0px 5px;
+    font-size: 1.6rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+#supprime:hover {
+  background-color: #ffffff;
+  transform: scale(1.1);
+  color: #FF9A40;
+ }
+
+  .addenregis-container {
+    display: flex;
+    align-items: center; 
+  }
+  
+@media (max-width: 768px) {
+  .profile-page {
+    flex-direction: column;
+  }
+
+  .profile-left, .profile-right {
+    width: 100%; /* Stack the sections vertically on smaller screens */
+  }
+}
+
+.address-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.address-table {
+  width: 100%;
+  border-collapse: collapse; /* Ensures borders are collapsed into a single line */
+}
+
+.address-table th,
+.address-table td {
+  border: 1px solid #ddd; /* Light grey border */
+  padding: 8px; /* Space inside table cells */
+  text-align: left; /* Align text to the left */
+}
+
+.address-table th {
+  background-color: #f4f4f4; /* Light background for header cells */
+  font-weight: bold; /* Make header text bold */
+}
+
+.address-table td {
+  vertical-align: middle; /* Aligns the content vertically */
+}
+
+.delete-icon {
+  cursor: pointer;
+  color: red;
+  font-size: 15px;
+  border: 2px solid red; /* Adds a red border around the icon */
+  border-radius: 4px; /* Makes the border square with slightly rounded corners */
+  padding: 4px; /* Adds space inside the border */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* Set the width of the square border */
+  height: 24px; /* Set the height of the square border */
+  text-align: center; /* Centers the cross mark within the border */
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.delete-icon:hover {
+  color: darkred;
+  border-color: darkred; /* Darkens the border color on hover */
+  transform: scale(1.2); /* Slightly enlarges the icon on hover */
+}
+
+@keyframes pulse {
+  0% {
+    border-color: red;
+    transform: scale(1);
+  }
+  50% {
+    border-color: darkred;
+    transform: scale(1.1);
+  }
+  100% {
+    border-color: red;
+    transform: scale(1);
+  }
+}
+
+.delete-icon {
+  animation: pulse 2s infinite; /* Optional: Continuous pulsing effect */
+}

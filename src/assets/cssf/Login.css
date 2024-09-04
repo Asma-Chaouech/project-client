@@ -1,0 +1,64 @@
+.pagetitre {
+    text-align: center;
+}
+
+#wrapper{
+    margin-top: -50px;
+}
+
+#bot{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    color: #FF9A40;
+    border: 1px solid #FF9A40;
+    border-radius: 8px;
+}
+
+#bot:hover{
+    background-color: #FF9A40;
+    color: #ffffff;
+}
+
+.login-box{
+  margin-top: 30px;
+}
+
+.input-icon {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    font-size: 16px;
+  }
+  
+  .input-icon i {
+    margin-right: 1rem;
+    color: #000000;
+  }
+  
+  .input-icon input {
+    border: none;
+    outline: none;
+    flex: 1;
+  }
+  
+  .title-container {
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .logo {
+    height: auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-left: 25%;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 767px) {
+    #bot {
+      font-size: 16px; 
+    }
+    }
+  

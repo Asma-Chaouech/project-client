@@ -1,0 +1,461 @@
+/* Base styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header styles */
+header {
+  background-color: #fff;
+  padding: 20px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.header-style .delivio-logo {
+  width: 150px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.navbar-links .dropdown {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.navbar-dropdown:hover .dropdown {
+  display: block;
+}
+
+
+
+.hero {
+  background: #ffffff;
+  padding: 20px;
+}
+.hero-content {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.hero-content h1 {
+  font-size: 4rem; /* Augmente la taille de la police à 4rem */
+  font-weight: bold;
+  color: #ff6600; /* Change la couleur du texte en orange (#ff6600) */
+  text-transform: uppercase;
+}
+
+.hero-content p {
+  font-size: 2rem; /* Augmente la taille de la police à 2rem */
+  color: #777; /* Change la couleur du texte en gris foncé (#777) */
+  font-style: italic;
+}
+.hero-content {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.hero-content h1 {
+  font-size: 3rem; /* Taille de la police */
+  font-weight: bold; /* Gras */
+  color: #333; /* Couleur du texte */
+  text-transform: uppercase; /* Texte en majuscules */
+}
+
+.hero-content p {
+  font-size: 1.5rem; /* Taille de la police */
+  color: #555; /* Couleur du texte */
+  font-style: italic; /* Italique */
+}
+
+.hero-content {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.hero-content h1 {
+  font-size: 3rem; /* Taille de la police */
+  font-weight: bold; /* Gras */
+  color: #333; /* Couleur du texte */
+  text-transform: uppercase; /* Texte en majuscules */
+}
+
+.hero-content p {
+  font-size: 1.5rem; /* Taille de la police */
+  color: #555; /* Couleur du texte */
+  font-style: italic; /* Italique */
+}
+
+.landing-links__links-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.landing-links__link {
+  display: inline-block;
+  padding: 12px 24px; /* Espace interne */
+  background-color: #ff6600; /* Couleur de fond */
+  color: #fff; /* Couleur du texte */
+  text-decoration: none;
+  border: 2px solid transparent; /* Bordure transparente */
+  border-radius: 6px; /* Coins arrondis */
+  font-size: 1.2rem; /* Taille de la police */
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Transition douce */
+}
+
+.landing-links__link:hover {
+  background-color: #e65c00; /* Couleur de fond au survol */
+  border-color: #e65c00; /* Couleur de bordure au survol */
+}
+.ScrollingCarousel {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  margin-top: 20px; /* Add spacing between carousels */
+}
+
+.ScrollingCarousel-inner {
+  display: flex;
+  animation: scroll 60s linear infinite;
+}
+
+.ScrollingCarousel-inner-reverse {
+  display: flex;
+  animation: scrollReverse 60s linear infinite;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes scrollReverse {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.ScrollingCarousel-card {
+  flex: 0 0 auto;
+  margin-right: 10px;
+}
+
+/* Styles pour réduire la taille des images et ajouter des coins arrondis */
+.ScrollingCarousel-card img {
+  width: auto;
+  max-height: 100px;
+  object-fit: contain;
+  border-radius: 8px; /* Valeur en pixels pour définir la courbure des coins */
+}
+
+/* Features section */
+.features {
+  padding: 60px 0;
+  background-color: #fff;
+  text-align: center;
+}
+
+.features h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+}
+
+.feature {
+  margin-bottom: 40px;
+}
+
+.feature-icon {
+  font-size: 48px;
+  color: #ffcc00;
+  margin-bottom: 20px;
+}
+
+.feature h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.feature p {
+  font-size: 18px;
+}
+
+/* Testimonials section */
+.testimonials {
+  padding: 60px 0;
+  background-color: #f5f5f5;
+  text-align: center;
+}
+
+.testimonials h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+}
+
+.testimonial {
+  margin-bottom: 40px;
+}
+
+.testimonial p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.testimonial h4 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Signup section */
+.signup {
+  padding: 60px 0;
+  background-color: #fff;
+  text-align: center;
+}
+
+.signup h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.signup p {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.signup-form input {
+  padding: 10px;
+  font-size: 16px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.signup-form button {
+  background-color: #ffcc00;
+  border: none;
+  color: #333;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signup-form button:hover {
+  background-color: #ff9900;
+}
+
+/* Contact section */
+.contact {
+  padding: 60px 0;
+  background-color: #f5f5f5;
+  text-align: center;
+}
+
+.contact h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.contact p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.contact a {
+  font-size: 18px;
+  color: #F29F05;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.contact a:hover {
+  color: #F29F05;
+}
+
+/* Footer styles */
+footer {
+  background-color: #333;
+  color: #f4e118;
+  padding: 20px 0;
+  text-align: center;
+}
+/* Base styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hero section styles */
+._2O6BUj {
+  position: relative;
+  overflow: hidden;
+  background-color: #ffffff; /* Background color to match the theme */
+  padding: 50px 0;
+  text-align: center;
+}
+
+._1W7fGa {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+._1IbQjL {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+._1IbQjL img {
+  width: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+._1IbQjL:hover img {
+  transform: scale(1.1); /* Zoom in on hover */
+}
+
+/* Animation for hero image */
+@keyframes zoomAnimation {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+._1IbQjL {
+  animation: zoomAnimation 10s infinite;
+}
+
+/* Figure styles */
+._3MNml {
+  margin: 0;
+  padding: 0;
+}
+
+.Nav7S {
+  display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  ._1IbQjL {
+    max-width: 100%;
+    padding: 20px;
+  }
+}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+._2O6BUj {
+  position: relative;
+}
+
+.left-text, .right-text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.left-text {
+  left: 0;
+  margin-left: 20px;
+}
+
+.right-text {
+  right: 0;
+  margin-right: 20px;
+}
+
+.left-phrase, .right-phrase {
+  font-size: 2rem; /* Ajustez la taille de la police selon vos besoins */
+  background: linear-gradient(to right, #f6bb30, #f70303);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.top-partners {
+  padding: 40px 0; /* Ajoute un espace autour du contenu */
+  background-color: #f8f9fa; /* Couleur de fond */
+  text-align: center; /* Centrer le contenu */
+}
+
+.top-partners__title {
+  font-size: 24px; /* Taille de police du titre */
+  color: #333; /* Couleur du texte */
+}
+
+.top-partners__container {
+  display: flex; /* Utilisation d'un conteneur flex pour les éléments */
+  flex-wrap: wrap; /* Permettre le retour à la ligne des éléments */
+  justify-content: center; /* Centrer les éléments horizontalement */
+  gap: 20px; /* Espacement entre les éléments */
+  margin-top: 20px; /* Marge en haut */
+}
+
+.top-partner-item {
+  width: 200px; /* Largeur des éléments */
+  padding: 10px; /* Espacement interne */
+  background-color: #fff; /* Couleur de fond */
+  border: 1px solid #ddd; /* Bordure */
+  border-radius: 8px; /* Bordure arrondie */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre */
+  transition: transform 0.3s ease-in-out; /* Animation de transition */
+}
+
+.top-partner-item:hover {
+  transform: translateY(-5px); /* Animation de léger déplacement vers le haut au survol */
+}
+
+.top-partner-item__image {
+  width: 100%; /* Largeur de l'image */
+  height: auto; /* Hauteur automatique proportionnelle */
+  border-radius: 8px; /* Bordure arrondie */
+}
+
+.top-partner-item__title {
+  margin-top: 10px; /* Marge en haut du titre */
+  font-size: 16px; /* Taille de police du titre */
+  color: #555; /* Couleur du texte */
+}

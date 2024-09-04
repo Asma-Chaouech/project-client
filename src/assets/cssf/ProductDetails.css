@@ -1,0 +1,641 @@
+.product-details-container {
+  padding: 8px;
+  background-color: #fff;
+  max-width: 1200px;
+  margin: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+  font: inherit;
+  font-family: inherit;
+  font-style: inherit; 
+  font-weight: inherit;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+}
+.product-container1 {
+  display: flex;
+  align-items: flex-start; 
+  gap: 20px; 
+}
+
+.afterheader {
+  margin-top: 100px;
+}
+
+.product-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.product-info-reviews {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  
+}
+
+.product-image-details {
+  width: 150%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.4s ease;
+  margin-bottom: 50px;
+}
+
+.product-image-details:hover {
+  transform: scale(1.1);
+}
+.reviews h2{
+  color: #ff9940ac;
+}
+
+.reviews-section,
+.product-details {
+  flex: 1;
+  padding: 20px;
+}
+
+.product-details h1 {
+  color: #333;
+  font-size: 3.5em;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: -15px;
+}
+.cat , .cat1{
+  margin-top: 30px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgb(225, 224, 224);
+  border-top: 1px solid rgb(225, 224, 244);
+}
+.cat strong{
+  color:#071c1f ;
+  font-weight: 400;
+  padding-right:20px ;
+  font: inherit;
+  font-family: inherit;
+  font-style: inherit; 
+    font-weight: inherit;
+    font-family: "Inter", sans-serif;
+}
+
+.category-container {
+  display: flex;
+  align-items: center; 
+  margin-bottom: -10px;
+}
+
+.category-container p {
+  margin: 0;
+}
+
+.product-details p {
+  color: #555;
+  font-size: 1.5em;
+  margin-bottom: 35px;
+}
+
+.product-details .px{
+  font-size: 4em;
+  color: #333;
+}
+.product-details .px strong{
+  color: #FF9A40;
+  font-size: 1.4em;
+}
+
+.quantity-display{
+  font-size: 20px;
+}
+
+.product-actions {
+  display: flex;
+  gap: 15px; 
+}
+
+.quantity-box {
+  display: flex;
+  align-items: center;
+  /**border: 1px solid rgb(217, 217, 217);**/
+  padding: 4px 5px;
+  margin-right: 10px;
+}
+
+.quantity-button-detail:hover {
+  background-color: #ffffff;
+  transform: scale(1.1);
+  color: #FF9A40;
+  border: 1px solid #FF9A40;
+  border-radius: 8px;
+}
+
+.quantity-display {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.icon-box {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 24px; 
+}
+
+.icon-box:hover {
+  color: #FF965A;
+}
+
+
+.desc{
+  margin-top: 30px;
+text-align: justify;
+font-size: 1.5rem;
+}
+.product-rating {
+  font-size: 1em;
+  color: #FF9A40;
+  margin-top: 15px;
+  text-align: center;
+}
+#firststar{
+  margin-bottom: -35px;
+  cursor:auto;
+}
+.stars {
+  display: flex;
+  align-items: center;
+  font-size: 35px;
+  color: #ddd;
+  cursor: pointer;
+ 
+}
+.stars1 {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  color: #ddd;
+  justify-content: end;
+}
+
+.star {
+  margin-right: 5px;
+}
+
+.star.filled {
+  color: gold;
+}
+
+.review-stars .star {
+  cursor: pointer;
+  font-size: 40px;
+  color: #ddd;
+  transition: color 0.2s;
+}
+
+.review-stars .star.selected,
+.review-stars .star:hover {
+  color: gold;
+}
+
+.review-form-group {
+  margin-bottom: 15px;
+}
+
+.review-form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 2em;
+  color: #333;
+}
+
+.review-form-group textarea {
+  width: 100%;
+  padding: 8px;
+  font-size: 2em;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+
+button[type="submit"] {
+  background-color: #FF9A40;
+  color: #fff;
+  padding: 12px 20px;
+  font-size: 2em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button[type="submit"]:hover {
+  background-color: #ff9940ac;
+}
+
+.reviews {
+  margin-top: 30px;
+}
+
+.review {
+  padding: 10px;
+}
+
+.review p {
+  margin: 5px 0;
+}
+
+.crumbs {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+
+.crumbs li {
+  display: inline;
+}
+
+.crumbs a {
+  text-decoration: none;
+  color: #FF9A40;
+}
+
+.crumbs a:hover {
+  text-decoration: underline;
+}
+
+.crumbs .two {
+  font-weight: bold;
+}
+
+.header {
+  position: relative;
+}
+
+.order-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #FF9A40;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 2em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.order-button:hover {
+  background-color: #ff9940ac;
+}
+
+.reply {
+  margin-left: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-left: 2px solid #ddd;
+  margin-top: 5px;
+}
+
+
+.reply-form button {
+  padding: 5px 10px;
+  background-color: #FF9A40;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reply-form button :hover {
+  background-color: #FF9A40;
+}
+
+@media (max-width: 768px) {
+  .product-info-reviews {
+    flex-direction: column;
+  }
+
+  .product-details h1 {
+    font-size: 2.3em;
+  }
+
+  .product-details p {
+    font-size: 1.5em;
+  }
+
+  .product-image-details {
+    max-width: 100%;
+  }
+
+  .stars, .review-stars .star {
+    font-size: 30px;
+  }
+
+  .review-form-group label {
+    font-size: 1em;
+  }
+
+  .review-form-group textarea {
+    font-size: 0.9em;
+  }
+
+  button[type="submit"] {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-details p {
+    font-size: 0.9em;
+  }
+
+  .product-details .px {
+    font-size: 1.2em;
+  }
+
+  .product-rating {
+    font-size: 0.9em;
+  }
+
+  .stars, .review-stars .star {
+    font-size: 50px;
+  }
+
+  .review-form-group label {
+    font-size: 0.9em;
+  }
+
+  .review-form-group textarea {
+    font-size: 0.8em;
+  }
+
+  button[type="submit"] {
+    font-size: 0.8em;
+  }
+}
+
+.product-container-sous {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.additional-images {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center; 
+  gap: 8px; 
+}
+
+.additional-image {
+  width: 100px; 
+  height: 100px; 
+  object-fit: cover; 
+  cursor: pointer; 
+}
+
+.product-actions-detail {
+  display: flex;
+  align-items: center;
+}
+.quantity-button-detail {
+  background-color: #ffffff;
+  color: black;
+  border: 1px solid #d9d5d5;
+  padding: 5px 10px;
+  font-size: 2.2rem;
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 0 15px;
+  transition: background-color 0.3s, transform 0.2s;
+  font-weight: 500;
+}
+
+.product-details-container {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  width: 90%;
+  margin-left: 50px;
+  font: inherit;
+  font-family: inherit;
+  font-style: inherit; 
+    font-weight: inherit;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 2px solid #FF9A40;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  border: none;
+  margin-right: 5px;
+  transition: background-color 0.3s;
+  font: inherit;
+  font-family: inherit;
+  font-style: inherit; 
+    font-weight: inherit;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+  font-size: 15px;
+}
+
+.tab.active {
+  background-color: #FF9A40;
+  color: white;
+  font-weight: bold;
+}
+
+.content {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.description-section, .reviews-section {
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.starsR {
+  display: flex;
+  margin-left: 10px;
+}
+
+.starXdate{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.starR {
+  font-size: 40px;
+  cursor: pointer;
+  color: #ccc;
+}
+.starR.filled {
+  color: gold;
+}
+.review-date {
+  font-size: 13px;
+  color: gray;
+}
+.review {
+  margin-bottom: 15px;
+}
+
+.reply-form {
+  margin-top: 10px;
+}
+
+.reply-form textarea {
+  width: 100%;
+  height: 120px; /* Augmente la hauteur pour un meilleur confort de saisie */
+  padding: 12px; /* Ajoute du padding pour plus d'espace autour du texte */
+  border: 1px solid #ccc; /* Bordure légère et neutre */
+  border-radius: 8px; /* Bords arrondis pour un look plus moderne */
+  background-color: #f9f9f9; /* Fond léger pour améliorer la lisibilité */
+  font-size: 16px; /* Augmente la taille de la police pour une meilleure lisibilité */
+  line-height: 1.5; /* Améliore l'espacement des lignes */
+  resize: vertical; /* Permet le redimensionnement vertical uniquement */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transition douce pour la bordure et l'ombre */
+}
+.reply-form textarea:focus {
+  border-color: #FF9A40; /* Change la couleur de la bordure au focus pour attirer l'attention */
+  box-shadow: 0 0 5px rgba(255, 154, 64, 0.5); /* Ajoute une ombre légère au focus pour plus de visibilité */
+  outline: none; /* Supprime le contour par défaut */
+}
+.new-review textarea {
+  width: 100%;
+  height: 120px; /* Augmente la hauteur pour un meilleur confort de saisie */
+  padding: 12px; /* Ajoute du padding pour plus d'espace autour du texte */
+  border: 1px solid #ccc; /* Bordure légère et neutre */
+  border-radius: 8px; /* Bords arrondis pour un look plus moderne */
+  background-color: #f9f9f9; /* Fond léger pour améliorer la lisibilité */
+  font-size: 16px; /* Augmente la taille de la police pour une meilleure lisibilité */
+  line-height: 1.5; /* Améliore l'espacement des lignes */
+  resize: vertical; /* Permet le redimensionnement vertical uniquement */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transition douce pour la bordure et l'ombre */
+}
+
+.new-review textarea:focus {
+  border-color: #FF9A40; /* Change la couleur de la bordure au focus pour attirer l'attention */
+  box-shadow: 0 0 5px rgba(255, 154, 64, 0.5); /* Ajoute une ombre légère au focus pour plus de visibilité */
+  outline: none; /* Supprime le contour par défaut */
+}
+
+.envoyer {
+  font-size: 14px; /* Correction du '12Fpx' en '14px' pour une taille de police plus appropriée */
+  margin-top: 10px;
+  padding: 8px 16px; /* Augmenter le padding pour un bouton plus confortable à cliquer */
+  background-color: #ffffff;
+  border: 2px solid #FF9A40; /* Augmenter la largeur de la bordure pour plus de visibilité */
+  color: #FF9A40;
+  border-radius: 6px; /* Augmenter le rayon des bordures pour des coins plus arrondis */
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase; /* Mettre le texte en majuscules pour une meilleure lisibilité */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.envoyer:hover {
+  background-color: #FF9A40;
+  color: white;
+  transform: scale(1.05); /* Ajuster le zoom pour un effet plus subtil */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ajouter une ombre portée pour un effet de profondeur */
+}
+
+.envoyer:active {
+  background-color: #e8873b; /* Couleur légèrement plus foncée lors du clic */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Réduire l'ombre lors du clic */
+  transform: scale(1); /* Réinitialiser le zoom lors du clic */
+}
+
+@media screen and (max-width: 768px) {
+  .product-content {
+    flex-direction: column;
+  }
+
+  .product-container1, .product-details {
+    flex: 1 1 100%;
+  }
+
+  .product-image-details {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .additional-images {
+    justify-content: space-around;
+  }
+
+  .quantity-box {
+    margin-bottom: 15px;
+  }
+
+  .product-actions-detail {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .product-content {
+    padding: 10px;
+  }
+
+  .product-image-details {
+    width: 100%;
+  }
+
+  .additional-image {
+    width: 10px;
+    height: 10px;
+  }
+
+  .quantity-button-detail {
+    padding: 5px 8px;
+  }
+
+  .icon-box {
+    font-size: 20px;
+  }
+}.envoyer1 {
+  font-size: 14px; /* Correction du '12Fpx' en '14px' pour une taille de police plus appropriée */
+  margin-top: 10px;
+  padding: 8px 16px; /* Augmenter le padding pour un bouton plus confortable à cliquer */
+  background-color: #ffffff;
+  border: 2px solid #FF9A40; /* Augmenter la largeur de la bordure pour plus de visibilité */
+  color: #FF9A40;
+  border-radius: 6px; /* Augmenter le rayon des bordures pour des coins plus arrondis */
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase; /* Mettre le texte en majuscules pour une meilleure lisibilité */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.envoyer1:hover {
+  background-color: #FF9A40;
+  color: white;
+  transform: scale(1.05); /* Ajuster le zoom pour un effet plus subtil */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ajouter une ombre portée pour un effet de profondeur */
+}
+
+.envoyer1:active {
+  background-color: #e8873b; /* Couleur légèrement plus foncée lors du clic */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Réduire l'ombre lors du clic */
+  transform: scale(1); /* Réinitialiser le zoom lors du clic */
+}

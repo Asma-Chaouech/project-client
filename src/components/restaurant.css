@@ -1,0 +1,128 @@
+.my-img{
+    border-radius: 5px;
+    
+}
+
+.my-about{
+    padding-bottom: 70px;
+    padding-top: 100px;
+}
+
+.my-gap{
+    padding-top: 100px;
+}
+
+.my-page{
+    /*background: linear-gradient(108.87deg, rgba(255, 185, 102, 0.8) 0.66%, rgba(255, 211, 159, 0.1) 99.48%);*/
+    background: linear-gradient(108.87deg, rgba(255, 185, 102, 0.) 0.66%, rgba(255, 211, 159, 0.0) 99.48%);
+}
+
+.my-frame{
+    border-radius: 15px;
+    border: 1px solid #FF965A;
+    height: 395px;
+    width: 100%
+}
+
+@media (max-width: 768px) {
+    .my-frame {
+      min-width: 600px;  
+      height: fit-content; 
+      width: fit-content;
+    }
+  }
+
+
+
+.my-space{
+    padding-top: 25px;
+    padding-right: 25px;
+}
+
+.my-icon{
+    width: 17px;
+    height: 17px;
+    color:#FF965A;
+    padding-top: 25px;
+}
+
+
+.my-search{
+    border-radius: 15px;
+    border: 1px solid orange
+}
+
+
+
+
+.my-text{
+    font-size: 16px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #000000FF;
+    padding-bottom: 20px;
+    text-align: justify;
+    line-height: 29px;
+}
+
+.my-a{
+    font-family: helveticaneue-bold;
+    font-size: 16px;
+}
+.my-open{
+    background: linear-gradient(108.87deg, rgba(255, 185, 102, 0.3) 70%, rgba(255, 255, 255, 1) 100%)
+}
+
+
+.my-gap{
+    padding-top: 0px;
+}
+
+
+
+
+
+.my-serch-input{
+    /* Style the search input */
+width: calc(100% - 20px);
+border: none;
+outline: none;
+padding: 5px;
+font-size: 16px;
+background: transparent;
+}
+  
+
+
+.myaddress-container {
+    max-height: 2.6em; /* Adjust based on your line height */
+    max-width: min-content;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limits to two lines */
+    -webkit-box-orient: vertical;
+    line-height: 1.3em; /* Adjust to your line height */
+    direction: ltr; /* Right-to-left direction to start clipping from the left */
+    text-align: left; /* Aligns the text to the left while keeping RTL direction */
+    white-space: nowrap; /* Ensures text doesn't wrap to the next line */
+  }
+  
+
+
+  .mydescription-container {
+    max-height: calc(1.2em * 7); /* Adjust the 1.2em value based on the line height */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    line-height: 1.2em; /* Set this to match the line height you need */
+  }
+  
+
+
+  .mycenter-last {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
