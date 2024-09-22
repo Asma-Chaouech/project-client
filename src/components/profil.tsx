@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark, faUser, faArrowLeft, faHome } from '@fortawesome/free-solid-svg-icons'; 
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FaShoppingCart } from 'react-icons/fa';
+import Header from './header1';
 const Profile: React.FC = () => {
   const [userData, setUserData] = useState<any>(null);
   const [userDocId, setUserDocId] = useState<string>('');
@@ -396,10 +397,15 @@ useEffect(() => {
     event.preventDefault();
     navigate('/Adresscrud'); // Replace with the actual route
   };
+
+  const calculateTotalQuantity = (): number => {
+    const quantity = localStorage.getItem('cartTotalQuantity');
+    return quantity ? parseInt(quantity, 10) : 0;
+  };
   return (
     
 <div className="profile-page">
-  <Headerprofile />
+<Header calculateTotalQuantity={calculateTotalQuantity}/>
 
       <div className="profile-container">
         <div className="profile-left">

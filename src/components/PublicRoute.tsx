@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+/*import { useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 const PublicRoute = () => {
@@ -9,7 +9,15 @@ const PublicRoute = () => {
 
   const isLoggedIn = localStorage.getItem('userId') !== null;
 
-  return !isLoggedIn ? <Outlet /> : <Navigate to="/productlist" replace />;
+  return !isLoggedIn ? <Outlet /> : <Navigate to="/about" replace />;
+};
+
+export default PublicRoute;*/
+import { Outlet } from 'react-router-dom';
+
+const PublicRoute = () => {
+  return <Outlet />;
 };
 
 export default PublicRoute;
+

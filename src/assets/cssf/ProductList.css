@@ -51,7 +51,7 @@ header {
   overflow-y: auto;
   margin-top: 50px;
   background-color: #fff;
-  position: absolute;
+  position: relative;
   top: 100px;
   left: 0;
   height: 100%;
@@ -86,7 +86,7 @@ header {
    text-transform: uppercase;
   text-transform: capitalize;
     line-height: 17px;
-    display: inline-block;
+    /*display: inline-block;*/
     cursor: pointer;
     margin-right: 3%;
     font-weight: 600;
@@ -95,7 +95,7 @@ header {
 
 .sidebar .category ul {
   list-style-type: none;
-  padding-left: 1.5rem; 
+  /*padding-left: 1.5rem; */
   color: #575864;
   text-transform: capitalize;}
 
@@ -149,7 +149,9 @@ header {
     padding: 5px 4px;
     margin-left: 60px;
     margin-right: 60px;
+
 }
+
 
 .filter-button {
   background-color: #fff;
@@ -162,6 +164,9 @@ header {
   font-size: 1.4rem; 
   font-weight: 600; 
   text-transform: capitalize; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .filter-button.active,
@@ -170,13 +175,43 @@ header {
   color: #fff; 
   transform: scale(1.05);
 }
+.my-pagination-button {
+  background-color: #FF9A40; 
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  margin: 0 0.75rem; 
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border-radius: 50%; 
+  font-size: 1.4rem; 
+  font-weight: 600; 
+  text-transform: capitalize; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  width: 40px;
+}
 
+.my-open-btn{
+  position: relative;
+  top: 55px;
+  background-color: transparent;
+  padding-right: 20px;
+  left: -23px;
+}
+.less-than-8{
+  height: 20px;
+  width: 33px;
+  border-radius: 30%;
+}
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 4rem;
   padding-left: 60px;
   padding-right: 60px;
+
 }
 
 .product-card {
@@ -213,6 +248,7 @@ header {
 .product-image {
   width: 100%;
   display: block;
+  margin-left: 32px;
 }
 
 .icons-container {
@@ -413,6 +449,7 @@ header {
   width: 280px; 
   padding: 7rem 2rem 2rem 2rem;
   position: absolute;
+  z-index: 9;
 }
 
 .sidebar a {
@@ -672,6 +709,8 @@ header {
     margin-right: 0;
   }
 
+
+/*
   .category-filter .filter-button:nth-child(1)::before {
     content: '⚙️'; 
   }
@@ -694,5 +733,107 @@ header {
 
   .category-filter .filter-button:nth-child(6)::before {
     content: '🍹'; 
+  }*/
+}
+.category-icon {
+  display: none; /* Icône masquée par défaut */
+}
+
+.category-image {
+  height: 20px;
+  width: 50px;
+  padding: 0;
+  border-radius: 30%;
+  display: block;
+  margin: 0 auto;
+}
+.sidebar-image{
+  max-width: 15%;
+}
+
+/* Petits écrans : masquer le texte et afficher uniquement l'image */
+@media (max-width: 768px) {
+  .category-name {
+    display: none; /* Masquer le texte */
   }
+
+  .product-card{
+    height: 362px;
+  }
+
+  .category-image {
+    display: block; /* Afficher l'image */
+  }
+  .less-than-8{
+    display: block;
+  }
+  .sidebar-image {
+    display: inline;
+    max-width:40%;
+  }
+
+  .sidebar{
+    max-width: 127px;
+    overflow-y: visible;
+  }
+  .category-filter{
+    position: relative;
+  }
+  .category-filter-open{
+    position: relative;
+    left:25px;
+  }
+
+  .product-grid{
+    position: relative;
+  }
+  .product-grid-open{
+    position: relative;
+    left: 25px;
+
+  }
+
+  /*.sidebar.open .product-grid{
+    left: 50px;
+  }*/
+
+  .crumbs-open{
+    left:50px;
+  }
+  
+  .category-icon {
+    display: inline-block; /* Si vous voulez aussi afficher une icône sur les petits écrans */
+    font-size: 20px; /* Vous pouvez ajuster la taille de l'icône ici */
+  }
+}
+
+/* Grands écrans : masquer l'image et afficher le texte */
+@media (min-width: 769px) {
+
+
+  .category-name {
+    display: inline-block; /* Afficher le texte */
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .category-image {
+    display: none; /* Masquer l'image */
+  }
+  .less-than-8{
+    display: none;
+
+  }
+  .sidebar-image {
+    display: inline;
+  }
+
+  .category-icon {
+    display: none; /* Masquer l'icône sur les grands écrans */
+  }
+}
+
+.current::placeholder {
+  color: gray; 
+  font-size: medium;
 }

@@ -43,51 +43,21 @@ const Headerprofile: React.FC = () => {
       localStorage.removeItem('cartItems');
       localStorage.removeItem('userName');  // Clear the stored user name
       setCartItems([]);
-      navigate('/login');
+      navigate('/about');
     } catch (error) {
       console.error('Erreur lors de la déconnexion:', error);
     }
   };
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const storedUserName = localStorage.getItem('userName');
-      if (storedUserName) {
-        setUserName(storedUserName);
-        setLoading(false);
-      } else {
-        const user = auth.currentUser;
-        if (user) {
-          try {
-            const usersRef = collection(db, 'clients');
-            const q = query(usersRef, where('email', '==', user.email));
-            const querySnapshot = await getDocs(q);
-
-            if (!querySnapshot.empty) {
-              const userDoc = querySnapshot.docs[0];
-              const data = userDoc.data();
-              const name = data.name || 'Account';
-              setUserName(name);
-              localStorage.setItem('userName', name);  // Store the user name
-              setLoading(false);
-            } else {
-              setError('Utilisateur non trouvé dans Firestore.');
-              setLoading(false);
-            }
-          } catch (error) {
-            setError('Erreur lors de la récupération des données utilisateur.');
-            console.error('Erreur lors de la récupération des données utilisateur:', error);
-            setLoading(false);
-          }
-        } else {
-          setError('Utilisateur non connecté.');
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchUserData();
-  }, [auth, db]);
+    const storedUserName = localStorage.getItem('userName');
+    if (storedUserName) {
+      setUserName(storedUserName);
+    } else {
+      setUserName('Account');  // Fallback if no userName is found in localStorage
+    }
+    setLoading(false);  // Stop loading after checking localStorage
+  }, []);
 
   useEffect(() => {
     const storedCartItems = localStorage.getItem('cartItems');

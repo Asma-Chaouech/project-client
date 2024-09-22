@@ -20,12 +20,13 @@ import PublicRoute from './components/PublicRoute'; // Chemin d'import correct
 import HistoryPage from './components/HistoryPage';
 import NotificationList from './components/Notif';
 import AboutPage from './components/acceuil';
+import NotifPage from './components/notifnew';
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
         {/* Redirect the user to the login page by default */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<Navigate to="/about" replace />} />
 
         {/* Public routes */}
         <Route element={<PublicRoute />}>
@@ -33,22 +34,24 @@ const App: React.FC = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/addresspage" element={<AddressPage />} /> {/* Make sure the path is lowercase */}
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/productlist/:restaurantId" element={<ProductList />} /> {/* Consistent naming convention */}
+          <Route path="/restaurants" element={<Restaurants />} />
+          <Route path="/productdetails/:productId" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} /> {/* Consistent naming convention */}
+          <Route path="/contact" element={<ContactPage />} />
+
+          
+
         </Route>
 
         {/* Protected routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
-          <Route path="/productlist/:restaurantId" element={<ProductList />} /> {/* Consistent naming convention */}
-          <Route path="/indexpage" element={<IndexPage />} />
-          <Route path="/contacts" element={<ContactPage />} />
-          <Route path="/restaurants" element={<Restaurants />} />
-          <Route path="/productdetails/:productId" element={<ProductDetails />} />
-          <Route path="/cart" element={<Cart />} /> {/* Consistent naming convention */}
           <Route path="/validationcommande" element={<ValidationCommande />} />
-          <Route path="/orderconfirmation" element={<OrderConfirmation />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/Adresscrud" element={<Adresscrud />} /> {/* Make sure the path is lowercase */}
           <Route path="/Notif" element={<NotificationList/>}/>
+          <Route path="/mynotif" element={<NotifPage />} />
 
           <Route path="/logout" element={<Logout />} />
         </Route>

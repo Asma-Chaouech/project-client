@@ -11,12 +11,12 @@ import '../assets/cssf/color.css';
 import Footer from '../components/footer';
 import AOS from 'aos';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBagShopping, faBars, faXmark } from '@fortawesome/free-solid-svg-icons'; // Importer les icônes appropriées
+import { faBagShopping, faBars, faUtensils, faXmark } from '@fortawesome/free-solid-svg-icons'; // Importer les icônes appropriées
 import 'aos/dist/aos.css';
 import './about.css'
 import { collection, getDocs } from 'firebase/firestore';
 import dileveryimg from '../assets/imgf/delivery-w.png';
-import Headerprofile from './haeder';
+import Header from './header1';
 import illustraion1 from '../assets/imgf/illustration-1.png'
 import illustraion2 from '../assets/imgf/illustration-2.png'
 import illustraion3 from '../assets/imgf/illustration-3.png'
@@ -62,6 +62,7 @@ interface Client{
         const [restaurantCount, setRestaurantCount] = useState<number>(0);
         const [clientData, setClientData] = useState<Client[]>([]);
         const [clientCount, setClientCount] = useState<number>(0);
+        const [cartItems, setCartItems] = useState<any[]>([]);
       
         useEffect(() => {
           AOS.init();
@@ -104,6 +105,21 @@ interface Client{
   }, []);
       
 
+  /*const calculateTotalQuantity = () => {
+    const storedCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    setCartItems(storedCartItems);
+    return storedCartItems.reduce((total, item) => total + (item.quantity || 0), 0);
+  };
+
+  useEffect(() => {
+    // Load cart items from localStorage when the component mounts
+    calculateTotalQuantity();
+  }, []);*/
+  const calculateTotalQuantity = (): number => {
+    const quantity = localStorage.getItem('cartTotalQuantity');
+    return quantity ? parseInt(quantity, 10) : 0;
+  };
+
       
         return (
           <>
@@ -120,7 +136,8 @@ interface Client{
                 </div>
               </div>
             )}
-            <Headerprofile/>
+            <Header calculateTotalQuantity={calculateTotalQuantity} />
+
 <section className="hero-section gap">
 		<div className="container">
 			<div className="row align-items-center">
@@ -128,9 +145,13 @@ interface Client{
 					<div className="restaurant">
 						<h2>Les Meilleurs Restaurnts Chez Vous</h2>
 						<p>Commandez vos plats préférés en quelques clics et laissez-nous nous occuper du reste!</p>
-						<div className="nice-select-one">
-						<a href="/restaurants" className="my-button my-button-2" style={{paddingTop: "4"}}>Choisir Votre restaurant</a>
-						</div>
+            <div className="nice-select-one">
+  <a href="/restaurants" className="my-button my-button-2" style={{ display: "flex", alignItems: "center", paddingTop: "4px" }}>
+  <FontAwesomeIcon icon={faUtensils} style={{ marginRight: "8px", widows:"20px" , height:"20px" , paddingBottom:"2px"}} />
+    <span>Choisir Votre restaurant</span>
+
+  </a>
+</div>
 					</div>
 				</div>
 				<div className="col-lg-6" data-aos="fade-up"  data-aos-delay="300" data-aos-duration="400">
@@ -191,23 +212,21 @@ interface Client{
 					<div className="col-lg-6 col-md-6 col-sm-6">
 						<div className="count-time" style={{border:"2px solid #FF965A" , marginBottom:"30px" , alignItems:"center"}}>
 								<h2 className="timer count-title count-number" data-to="976" data-speed="2000">{clientCount}</h2>
-									<p>Client<br/>
-									Satisfait</p>
+									<p style={{ alignContent: "center" }}>Clients<br/>Inscrits</p>
 						</div>
 				</div>
 				<div className="col-lg-6 col-md-6 col-sm-6" data-aos="flip-up"  data-aos-delay="300" data-aos-duration="400">
 						<div className="count-time" style={{border:"2px solid #FF965A" , alignItems:"center"}}>
 								<h2 className="timer count-title count-number" data-to="12" data-speed="2000">{restaurantCount}</h2>
-									<p>Meilleurs<br/>
-											Restaurants</p>
+									<p style={{ alignContent: "center" }}>Restaurants <br/>à votre disposition</p>
 						</div>
 				</div>
 				<div className="col-lg-6 col-md-6 col-sm-6">
 						<div className="count-time sp" style={{border:"2px solid #FF965A" , alignItems:"center"}}>
 								<h2 className="timer count-title count-number" data-to="1" data-speed="2000">{commandCount}</h2>
 								<span></span>
-									<p>Repas<br/>
-											Deliverée</p>
+									<p style={{ alignContent: "center" }}>Commandes<br/>
+											Deliverées</p>
 						</div>
 				</div>
 			</div>

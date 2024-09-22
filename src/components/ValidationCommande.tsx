@@ -5,7 +5,7 @@ import { useLocation, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 import { collection, query, where, getDocs, updateDoc, doc, addDoc, arrayUnion   } from 'firebase/firestore';
-import Headerprofile from './haederprofil';
+import Header from './header1';
 import '../assets/css/style.css';
 import '../assets/cssf/ProfilePage.css'; // Add your CSS styles here
 import '../assets/cssf/ValidationCommande.css'; // Add your CSS styles here
@@ -50,13 +50,14 @@ interface Address {
 const ValidationCommande: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { cartItems: initialCartItems, total, deliveryAddress } = location.state as {
+  /*const { cartItems: initialCartItems, total, deliveryAddress } = location.state as {
     cartItems: CartItem[];
     total: string;
     deliveryAddress: string;
-  };
+  };*/
 
-  const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems || []);
+  //const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems || []);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [client, setClient] = useState<Client | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userData, setUserData] = useState<any>(null);
@@ -72,7 +73,8 @@ const ValidationCommande: React.FC = () => {
   const [promoError, setPromoError] = useState<string>('');
   const [deliveryCost, setDeliveryCost] = useState<number>(8.000);
   const [userDocId, setUserDocId] = useState<string>('');
-  const [lastAddress, setLastAddress] = useState<string>(deliveryAddress);
+  //const [lastAddress, setLastAddress] = useState<string>(deliveryAddress);
+  const [lastAddress, setLastAddress] = useState<string>('');
   const stripe = useStripe();
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState<string | undefined>(undefined);
@@ -89,6 +91,34 @@ const ValidationCommande: React.FC = () => {
   const handleCloseconf = () => setShowModalconf(false);
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [command, setCommand] = useState<any>(null);
+  const [total, setTotal] = useState<string>('0');
+  const [deliveryAddress, setDeliveryAddress] = useState<string>('');
+
+
+  useEffect(() => {
+    // Check if cartItems exist in localStorage
+    const storedCartItems = localStorage.getItem('cartItems');
+    if (storedCartItems) {
+      // Parse and use stored cartItems
+      const parsedCartItems = JSON.parse(storedCartItems);
+      setCartItems(parsedCartItems);
+    } else {
+      // Use location.state if cartItems are not in localStorage
+      if (location.state) {
+        const { cartItems: initialCartItems, total: initialTotal, deliveryAddress: initialDeliveryAddress } = location.state as {
+          cartItems: CartItem[];
+          total: string;
+          deliveryAddress: string;
+        };
+        console.log("113")
+        console.log("114", initialTotal)
+
+        setCartItems(initialCartItems);
+        setTotal(initialTotal);
+        setDeliveryAddress(initialDeliveryAddress);
+      }
+    }
+  }, [location.state, navigate]);
 
 
   const handleConfirm = async () => {
@@ -191,6 +221,7 @@ const ValidationCommande: React.FC = () => {
 
     if (promoCodeTrimmed === '') {
       setPromoError('Veuillez entrer un code promo.');
+      setDiscount(0);
       return;
     }
     try {
@@ -209,7 +240,20 @@ const ValidationCommande: React.FC = () => {
         setPromoError('Code promo expiré');
         setDiscount(0);
       } else {
-        const discountAmount = parseFloat(total) * (discountRate / 100);
+        console.log("Valeur de total avant conversion:", total);
+        const totalAmount = parseFloat(total);
+      
+      // Vérifier si la conversion est réussie
+      if (isNaN(totalAmount)) {
+        setPromoError('Montant total invalide');
+        setDiscount(0);
+        return;
+      }
+       const mytotal = localStorage.getItem('cartTotal') || '0';
+        const discountAmount = parseFloat(mytotal) * (discountRate / 100);
+        console.log(discountAmount)
+        console.log("me1", mytotal)
+        console.log("me", discountRate)
         setDiscount(discountAmount);
       }
     } catch (error) {
@@ -342,6 +386,7 @@ const confirmOrderCard = async () => {
       finalTotal: parseFloat(finalTotal),
       paymentMethod,
       date: orderDate,
+      RestaurantId : localStorage.getItem('resId'),
     };
     setCommand(panierData)
     await updateDoc(userRef, { panier: panierData });
@@ -361,14 +406,15 @@ const confirmOrderCard = async () => {
           setSuccessMessage('La commande est en cours de traitement...');
           setTimeout(() => {
             handleClearCart();
-
-            navigate('/profile');
+            localStorage.setItem('cartTotalQuantity', '0');
+            navigate('/about');
           }, 3000);
 
           const requestBody = {
             clientName: client?.name,
             commandId: panierData.id,
-            type: 'command'
+            type: 'command',
+            resId: localStorage.getItem('resId'),
           };
           console.log(requestBody)
           console.log(panierData?.id, "me")
@@ -428,6 +474,7 @@ const confirmOrderCash = async () => {
       finalTotal: parseFloat(finalTotal),
       paymentMethod,
       date: orderDate, // Add order date
+      RestaurantId: localStorage.getItem('resId')
     };
 
 
@@ -453,12 +500,15 @@ const confirmOrderCash = async () => {
     // Clear the cart and redirect after a delay
     setTimeout(() => {
       handleClearCart();
-      navigate('/productlist/1'); // Redirect to the product list page
+      localStorage.setItem('cartTotalQuantity', '0');
+      navigate('/about'); // Redirect to the product list page
     }, 3000);
     const   requestBody = {
       clientName: client?.name,
       commandId: panierData.id,
-      type: 'command'
+      type: 'command',
+      resId: localStorage.getItem('resId'),
+      
     };
     console.log(requestBody)
     console.log(panierData?.id , userDocId ,  "me")
@@ -491,9 +541,12 @@ const handleButtonAndConfirmOrder = async (e: React.FormEvent<HTMLFormElement>) 
   const handleAddressChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedAddress(e.target.value);
   };
+  const calculateTotalQuantity = () => {
+    return cartItems.reduce((totalQuantity, item) => totalQuantity + item.quantity,0);
+  };
   return (
     <div id="validation-container" className="validation-container">
-       <Headerprofile />
+        <Header calculateTotalQuantity={calculateTotalQuantity} />
 
       <div>
       <h1 className='pan'><strong>Veuillez vérifier vos informations </strong> 

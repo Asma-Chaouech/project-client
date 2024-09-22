@@ -700,6 +700,7 @@
     }
     .count-time{
         margin-top: 40px;
+        min-height: 223px;
     }
     .wilmington {
         width: 43%;
@@ -743,6 +744,7 @@
     }
 }
 @media(max-width: 768px){
+    
     .error-page form input[type="text"],.mobile-nav,.menu-inner{
         width: 100%;
     }

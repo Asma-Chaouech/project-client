@@ -160,7 +160,10 @@ const AddressPage: React.FC = () => {
 
         setSuccess('Votre adresse a été enregistrée avec succès.');
         setError('');
-        navigate('/restaurants');
+        const redirectTo = localStorage.getItem('redirectPath') || '/';
+        localStorage.removeItem('redirectPath'); // Clean up the saved path
+        navigate(redirectTo);
+        //navigate('/restaurants');
       } catch (error) {
         console.error('Erreur lors de l\'enregistrement de l\'adresse:', error);
         setError('Un problème est survenu lors de l\'enregistrement de l\'adresse. Veuillez réessayer.');

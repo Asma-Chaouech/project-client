@@ -11,12 +11,14 @@ import {  useNavigate } from 'react-router-dom';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore'; // Import Firestore
 
 import { getAuth, signOut } from 'firebase/auth'; // Import Firebase Auth
+import Header from './header1';
 interface CartItem {
   productId: string;
   productName: string;
   productPrice: number;
   quantity: number;
   productImage: string;
+  finalTotal: number;
 }
 
 const Cart: React.FC = () => {
@@ -33,25 +35,6 @@ const Cart: React.FC = () => {
   const navigate = useNavigate();
   const db = getFirestore(); // Initialize Firestore
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const toggleProfileDropdown = () => {
-    setIsProfileDropdownOpen(!isProfileDropdownOpen);
-  };
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth); // Sign the user out
-      localStorage.removeItem('userId'); // Clear the user ID from local storage
-      localStorage.removeItem('cartItems'); // Clear the cart items from local storage
-      setCartItems([]); // Clear the cart items in the state
-      navigate('/login'); // Redirect to the LandingPage after logout
-    } catch (error) {
-      console.error('Erreur lors de la déconnexion:', error);
-    }
-  };
   useEffect(() => {
     const fetchUserData = async () => {
       const user = auth.currentUser;
@@ -127,6 +110,8 @@ const Cart: React.FC = () => {
   const handleClearCart = () => {
     setCartItems([]);
     localStorage.removeItem('cartItems');
+    localStorage.setItem('cartTotal',"0");
+    localStorage.setItem('cartTotalQuantity',"0");
   };
 
   useEffect(() => {
@@ -137,14 +122,14 @@ const Cart: React.FC = () => {
     } else {
       setDeliveryCost(8.00);
     }
+    localStorage.setItem('cartTotal', (totalPrice + deliveryCost).toString());
   }, [cartItems]);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(prevState => !prevState);
+  const calculateTotalQuantity = (): number => {
+    const quantity = localStorage.getItem('cartTotalQuantity');
+    return quantity ? parseInt(quantity, 10) : 0;
   };
-  const calculateTotalQuantity = () => {
-    return cartItems.reduce((totalQuantity, item) => totalQuantity + item.quantity,0);
-  };
+
   const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
     '& .MuiBadge-badge': {
       right: -3,
@@ -160,66 +145,15 @@ const Cart: React.FC = () => {
       justifyContent: 'center',
     },
   }));
+  const handleUpdateCart = () => {
+    navigate(-1);
+  };
+
+
   return (
     <div id="cart-container" className="cart-container">
-     <header>
-      <div className="container">
-        <div className="row align-items-center">
-          <div className="col-xl-2">
-          
-            <div className="header-style">
-              <Link to="/ProductList">
-                <img
-                  src="https://firebasestorage.googleapis.com/v0/b/deliverysitem-4dcc6.appspot.com/o/image%202.png?alt=media&token=36ee4647-68e8-4620-b7ac-b6af3f1fc996"
-                  alt="Logo"
-                  width="163"
-                  height="38"
-                />
-              </Link>
-              <div className="extras">
-                <button className="openbtn" onClick={toggleSidebar}>☰</button>
-              </div>
-              <div className="extras">
-                <div className={`bar-menu ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu}>
-                  <FontAwesomeIcon icon={isMenuOpen ? (faXmark as IconProp) : (faBars as IconProp)} />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-7">
-            <nav className={`navbar ${isMenuOpen ? 'open' : ''}`}>
-              <Link to="/ProductList">Accueil</Link>
-              <Link to="/restaurants">Restaurants</Link>
-              
-            </nav>
-          </div>
-          <div className="col-lg-3">
-            <div className="header-extras">
-              <div className="profile-dropdown" onClick={toggleProfileDropdown}>
-                <div className="profile-link">
-                  <FontAwesomeIcon icon={faUser as IconProp} />
-                  <span className="d-none d-lg-inline">{userName}</span> {/* Display user's name */}
-                </div>
-                {isProfileDropdownOpen && (
-               <div className="dropdown-menu" style={{display: "block", width: "-webkit-fill-available"}}>
-               <Link to="/profile">Profil</Link>
-               <Link to="/history">Historique</Link> {/* Ajoutez le lien Historique */}
-               <a href="#" onClick={handleLogout}>Déconnexion</a>
-             </div>
-                )}
-              </div>
-              <Link to="/Cart">
-                <button className="order-button">
-                <StyledBadge badgeContent={calculateTotalQuantity()} color="secondary">
-                    <FaShoppingCart size={24} />
-                  </StyledBadge>
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
+       <Header calculateTotalQuantity={calculateTotalQuantity} />
+
       <h1 className='pan'><strong>Votre panier est prêt !</strong> 
       <p className='pan'> Vérifiez vos articles et passez à la caisse pour compléter votre achat.</p> </h1>
       <div className="cart-header">
@@ -280,8 +214,8 @@ const Cart: React.FC = () => {
               ))}
             </tbody>
           </table>
-          <Link to="/ProductList">
-            <button className="payment-button">Mettre à jour votre panier</button>
+          <Link to="#">
+            <button className="payment-button" onClick={handleUpdateCart}>Mettre à jour votre panier</button>
           </Link>
           <table id="summary-table" className="summary-table">
             <tbody>

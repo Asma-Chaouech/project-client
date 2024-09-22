@@ -57,7 +57,7 @@
 
 .my-text{
     font-size: 16px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica ;/*, Arial, sans-serif;*/
     color: #000000FF;
     padding-bottom: 20px;
     text-align: justify;
@@ -125,4 +125,6 @@ background: transparent;
     margin-left: auto;
     margin-right: auto;
   }
-  
+  .current::placeholder {
+    color: gray; 
+  }

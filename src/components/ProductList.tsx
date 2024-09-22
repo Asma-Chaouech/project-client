@@ -13,10 +13,12 @@ import { styled } from '@mui/material/styles';
 import Footer from '../components/footer';
 import { getAuth, signOut } from 'firebase/auth'; // Import Firebase Auth
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faXmark, faUser, faArrowLeft, faHome ,faShoppingCart} from '@fortawesome/free-solid-svg-icons'; 
+import { faBars, faXmark, faUser, faArrowLeft, faHome ,faShoppingCart, faEye} from '@fortawesome/free-solid-svg-icons'; 
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { useNavigate } from 'react-router-dom';
-import Headerprofile from './haederprofil';
+import Header from './header1';
+import ReactAutocomplete from 'react-autocomplete';
+//import Headerprofile from './haeder';
 
 
 Modal.setAppElement('#root');
@@ -87,65 +89,13 @@ const ProductList: React.FC = () => {
   const [mycategory, setCategories] = useState<Category[]>([]);
   const [mysubCategory, setSubCategories] = useState<SubCategory[]>([]);
   const { restaurantId } = useParams<{ restaurantId: string }>();
+  const [searchQuery, setSearchQuery] = useState<Product[]>([]);
+  const [selectedValue, setSelectedValue] = useState<string>('');
 
 
   
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const toggleProfileDropdown = () => {
-    setIsProfileDropdownOpen(!isProfileDropdownOpen);
-  };
 
 
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const user = auth.currentUser;
-      if (user) {
-        try {
-          const usersRef = collection(db, 'clients');
-          const q = query(usersRef, where('email', '==', user.email));
-          const querySnapshot = await getDocs(q);
-
-          if (!querySnapshot.empty) {
-            const userDoc = querySnapshot.docs[0];
-            const data = userDoc.data();
-            setUserName(data.name || 'Account'); // Update the user's name
-            setCartItems(data.cart || []);
-            
-            // Save user data to localStorage
-            localStorage.setItem('userData', JSON.stringify(data));
-            localStorage.setItem('userDocId', userDoc.id);
-
-            setLoading(false);
-          } else {
-            setError('Utilisateur non trouvé dans Firestore.');
-            setLoading(false);
-          }
-        } catch (error) {
-          setError('Erreur lors de la récupération des données utilisateur.');
-          console.error('Erreur lors de la récupération des données utilisateur:', error);
-          setLoading(false);
-        }
-      } else {
-        setError('Utilisateur non connecté.');
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [auth, db]);
-  const handleLogout = async () => {
-    try {
-      await signOut(auth); // Sign the user out
-      localStorage.removeItem('userId'); // Clear the user ID from local storage
-      navigate('/login'); // Redirect to the LandingPage after logout
-    } catch (error) {
-      console.error('Erreur lors de la déconnexion:', error);
-    }
-  };
 
   useEffect(() => {
     AOS.init();
@@ -222,6 +172,8 @@ const ProductList: React.FC = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  /*
   useEffect(() => {
     // Block the back button
     const handlePopState = (event: PopStateEvent) => {
@@ -235,10 +187,21 @@ const ProductList: React.FC = () => {
       window.removeEventListener('popstate', handlePopState);
     };
   }, [navigate]);
+*/
+  useEffect(() => {
+    // Load cart items from localStorage when the component mounts
+    const storedCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    setCartItems(storedCartItems);
+  }, []);
+
+
   const addToCart = (product: Product, productId: string) => {
     const cartItems: CartItem[] = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    console.log("mypro",product);
+    
    
     const existingItem = cartItems.find((item: any) => item.productId === product.productId);
+    console.log("exist", existingItem , product.productId)
     
     if (existingItem) {
       existingItem.quantity += 1;
@@ -252,6 +215,9 @@ const ProductList: React.FC = () => {
       : item
   );
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+    const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+    localStorage.setItem('cartTotalQuantity', JSON.stringify(totalQuantity));
     setCartItems(updatedCartItems);
   };
 
@@ -269,7 +235,7 @@ const ProductList: React.FC = () => {
 
 
   
-const filteredProducts = () => {
+/*const filteredProducts = () => {
   // Filtrer par sous-catégorie si elle est sélectionnée
   if (selectedSubcategory) {
     return products.filter(product => getsubCategoryName(product.productSpecCategory) === getsubCategoryName(selectedSubcategory));
@@ -282,6 +248,19 @@ const filteredProducts = () => {
 
   // Retourner tous les produits si aucune catégorie ni sous-catégorie n'est sélectionnée
   return products;
+};*/
+const filteredProducts = () => {
+  let filteredByName = searchQuery;
+
+  if (selectedSubcategory) {
+    filteredByName = filteredByName.filter(product => getsubCategoryName(product.productSpecCategory) === getsubCategoryName(selectedSubcategory));
+  }
+
+  if (selectedCategory && selectedCategory !== 'Voir tout') {
+    filteredByName = filteredByName.filter(product => getCategoryName(product.productCategory) === selectedCategory);
+  }
+
+  return filteredByName;
 };
 
 const handleCategoryClick = (category: string) => {
@@ -305,8 +284,11 @@ const handleSubcategoryClick = (subcategory: string) => {
   };
 
   const handleViewDetails = (productId: string) => {
+    localStorage.setItem("productId",productId)
     navigate(`/ProductDetails/${productId}`);
   };
+
+  
   const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
     '& .MuiBadge-badge': {
       right: -3,
@@ -325,7 +307,57 @@ const handleSubcategoryClick = (subcategory: string) => {
   const calculateTotalQuantity = () => {
     return cartItems.reduce((totalQuantity, item) => totalQuantity + item.quantity,0);
   };
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
+
+  useEffect(() => {
+    if (selectedValue === '') {
+      setSearchQuery(products);
+    } else {
+      const searchLower = selectedValue.toLowerCase();
+      setSearchQuery(products.filter(r => r.productName.toLowerCase().includes(searchLower)
+      ));
+    }
+  }, [selectedValue, products]);
+
+  const names = Array.from(new Set(products.map(r => r.productName))).sort();
+  const [isLessThan8, setIsLessThan8] = useState(false);
+
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const categoriesPerPage = 8;
+
+  // Calculer le nombre total de pages
+  const totalPages = Math.ceil(mycategory.length / categoriesPerPage);
+
+  // Filtrer les catégories à afficher pour la page actuelle
+  const currentCategories = mycategory.slice(
+    currentPage * categoriesPerPage,
+    (currentPage + 1) * categoriesPerPage
+  );
+  useEffect(() => {
+    setIsLessThan8(currentCategories.length < categoriesPerPage);
+  }, [currentCategories]);
+  
+
+  // Calculer le nombre d'éléments restants après la page actuelle
+  const remainingPages = totalPages - currentPage - 1;
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages - 1) {
+      setCurrentPage(currentPage + 1);
+      
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+console.log(isLessThan8)
   
   return (
     <>
@@ -344,82 +376,33 @@ const handleSubcategoryClick = (subcategory: string) => {
       )}
       {!loading && (
         <div className="page-container">
-     <header>
-      <div className="container">
-        <div className="row align-items-center">
-          <div className="col-xl-2">
           
-            <div className="header-style">
-              <Link to="/ProductList">
-                <img
-                  src="https://firebasestorage.googleapis.com/v0/b/deliverysitem-4dcc6.appspot.com/o/image%202.png?alt=media&token=36ee4647-68e8-4620-b7ac-b6af3f1fc996"
-                  alt="Logo"
-                  width="163"
-                  height="38"
-                />
-              </Link>
-              <div className="extras">
-                <button className="openbtn" onClick={toggleSidebar}>☰</button>
-              </div>
-              <div className="extras">
-                <div className={`bar-menu ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu}>
-                  <FontAwesomeIcon icon={isMenuOpen ? (faXmark as IconProp) : (faBars as IconProp)} />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-7">
-            <nav className={`navbar ${isMenuOpen ? 'open' : ''}`}>
-              <Link to="/ProductList">Accueil</Link>
-              <Link to="/restaurants">Restaurants</Link>
-              
-            </nav>
-          </div>
-          <div className="col-lg-3">
-            <div className="header-extras">
-              <div className="profile-dropdown" onClick={toggleProfileDropdown}>
-                <div className="profile-link">
-                  <FontAwesomeIcon icon={faUser as IconProp} />
-                  <span className="d-none d-lg-inline">{userName}</span> {/* Display user's name */}
-                </div>
-                {isProfileDropdownOpen && (
-               <div className="dropdown-menu" style={{display: "block", width: "-webkit-fill-available"}}>
-               <Link to="/profile">Profil</Link>
-               <Link to="/history">Historique</Link> {/* Ajoutez le lien Historique */}
-               <a href="#" onClick={handleLogout}>Déconnexion</a>
-             </div>
-                )}
-              </div>
-              <Link to="/Cart">
-                <button className="order-button">
-                <StyledBadge badgeContent={calculateTotalQuantity()} color="secondary">
-                    <FaShoppingCart size={24} />
-                  </StyledBadge>
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
+
+    <Header calculateTotalQuantity={calculateTotalQuantity}/>
+    <main className={`content ${isSidebarOpen ? 'shifted ' : ''}`} style={{paddingTop:"50px" , overflowX:"hidden"}}>
+    <div className="extras">
+      <button className="openbtn my-open-btn" onClick={toggleSidebar} >☰</button>
+    </div>
+    <div className="extras">
+      <div className={`bar-menu ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu} >
+        <FontAwesomeIcon icon={isMenuOpen ? faXmark : faBars } style={{color:"orange"}} />
       </div>
-    </header>
-          
-
-
-    <main className={`content ${isSidebarOpen ? 'shifted' : ''}`} style={{paddingTop:"50px"}}>
+    </div>
   <div className="row">
     {isSidebarOpen && (
         <div className="col-lg-3">
-        <aside className="sidebar open">
-          <h2>Categories</h2>
+        <aside className="sidebar open" style={{top:"75px" , overflowY:"visible"}}>
+          <h2 className="d-none d-lg-block">Categories</h2>
           {mycategory.map((category) => (
   <div key={category.name} className="category">
     <div className="category-header" onClick={() => toggleCategory(category.name)}>
       <img
         alt="categoryimg"
+        className='sidebar-image'
         src={category.categoryImage}
-        style={{ maxWidth: "15%", borderRadius: "50%" }}
+        style={{  borderRadius: "50%" }}
       /> &nbsp;
-      <h3>{category.name}</h3>
+      <h3  className='category-name'>{category.name}</h3>
 
       {category.subCategories.length > 0 && (
         openCategory === category.name ? <AiOutlineUp /> : <AiOutlineDown />
@@ -448,9 +431,9 @@ const handleSubcategoryClick = (subcategory: string) => {
         </div>
 
     )}
-    <div className={isSidebarOpen ? 'col-lg-9' : 'col-lg-12'}>
+    <div className={isSidebarOpen ? 'col-lg-9 product-grid-open category-filter-open crumbs-open' : 'col-lg-12'}>
       <div>
-        <ul className="crumbs d-flex">
+        <ul className="crumbs d-flex" style={{position:"relative", left:"95px"}}>
           <li><Link to="/IndexPage">Accueil</Link></li>
           <li><Link to="/restaurants">Restaurants</Link></li>
           <li className="two">
@@ -458,30 +441,80 @@ const handleSubcategoryClick = (subcategory: string) => {
               <i className="fa-solid fa-right-long"></i>Produits
             </Link>
           </li>
+          <div className={`nice-select Advice my-search`} style={{top:"-12px" , width:"300px"}}>
+                      <ReactAutocomplete
+                        items={names.map(name => ({ label: name }))}
+                        shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
+                        getItemValue={item => item.label}
+                        renderItem={(item, isHighlighted) =>
+                          <div key={item.label} className={`option ${isHighlighted ? 'focus' : ''}`}>
+                            {item.label}
+                          </div>
+                        }
+                        value={selectedValue}
+                        onChange={e => setSelectedValue(e.target.value)}
+                        onSelect={value => setSelectedValue(value)}
+                        inputProps={{ className: 'current', placeholder: "Entrez le nom" ,style: { border: 'none', outline: 'none', boxShadow: 'none', width: '250px', paddingLeft: '15px', fontSize: '20px', fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif', color: '#000' } }}
+                        menuStyle={{
+                          position: 'absolute',
+                          top: '100%',
+                          left: 0,
+                          right: 0,
+                          zIndex: 2,
+                          borderRadius: '3px',
+                          boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+                          background: 'rgba(255, 255, 255, 0.9)',
+                          padding: '2px 0',
+                          maxHeight: '200px',
+                          overflow: 'auto',
+                        }}
+                      />
+                    </div>
         </ul>
       </div>
 
+<div className="category-filter-wrapper">
+
+
       <div className="category-filter">
-        {windowWidth > 768
-          ? ['Voir tout', ...mycategory.map((c) => c.name)].map((category) => (
-              <button
-                key={category}
-                className={`filter-button ${selectedCategory === category ? 'active' : ''}`}
-                onClick={() => handleCategoryClick(category)}
-              >
-                {category}
-              </button>
-            ))
-          : ['Voir tout', ...mycategory.map((c) => c.categoryImage)].map((icon, index) => (
-              <button
-                key={index}
-                className={`filter-button ${selectedCategory === mycategory[index]?.name ? 'active' : ''}`}
-                onClick={() => handleCategoryClick(mycategory[index]?.name)}
-              >
-                {icon}
-              </button>
-            ))}
+              {/* Bouton précédent (à gauche) */}
+      {currentPage > 0 && (
+        <button className="my-pagination-button" onClick={handlePreviousPage}>
+          -1 {/* Icône pour revenir en arrière */}
+        </button>
+      )}
+        <button
+          className={`filter-button ${selectedCategory === 'Voir tout' ? 'active' : ''}`}
+          onClick={() => handleCategoryClick('Voir tout')}
+        >
+          <FontAwesomeIcon icon={faEye} className="category-icon" />
+          <span className="category-name">Voir tout</span>
+        </button>
+
+        {currentCategories.map((category, index) => (
+          <button
+            key={index}
+            className={`filter-button ${selectedCategory === category.name ? 'active' : ''}`}
+            onClick={() => handleCategoryClick(category.name)}
+          >
+            <img
+              src={category.categoryImage}
+              alt={category.name}
+              className={isLessThan8 ? 'less-than-8' : 'category-image'}
+            />
+            <span className="category-name">{category.name}</span>
+          </button>
+        ))}
+       {remainingPages > 0 && (
+        <button className="my-pagination-button" onClick={handleNextPage}>
+          {/* Afficher +1 ou le nombre exact de pages restantes */}
+          {`+${remainingPages}`}
+        </button>
+      )}
       </div>
+
+
+    </div>
 
       <div className="product-grid">
         {filteredProducts().length === 0 ? (

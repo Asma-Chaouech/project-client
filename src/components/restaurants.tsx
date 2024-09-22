@@ -18,8 +18,8 @@ import { faMapMarkerAlt, faPhone, faClock, faArrowRight } from '@fortawesome/fre
 import 'aos/dist/aos.css';
 import ReactAutocomplete from 'react-autocomplete';
 import { useNavigate } from 'react-router-dom';
-//import Headerprofile from './haederprofil';
-import Headerprofile from './haeder';
+import Header from './header1';
+import Headerprofile from './haederprofil';
 
 const Restaurant: React.FC = () => {
   interface Restaurant {
@@ -32,6 +32,7 @@ const Restaurant: React.FC = () => {
     phoneNumber: string;
     description: string;
     tag: string;
+    userId: string;
   }
 
   const [restaurant, setRestaurant] = useState<Restaurant[]>([]);
@@ -40,6 +41,7 @@ const Restaurant: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedValue, setSelectedValue] = useState<string>('');
   const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState<any[]>([]);
 
 
   useEffect(() => {
@@ -79,17 +81,33 @@ const Restaurant: React.FC = () => {
     }
   }, [selectedValue, restaurant]);
 
-  const handleViewProduct = (RestaurantId: string) => {
+  const handleViewProduct = (RestaurantId: string , userId: string) => {
+    localStorage.setItem('resId' , userId)
     navigate(`/productlist/${RestaurantId}`);
   };
+  /*const calculateTotalQuantity = () => {
+    const storedCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    setCartItems(storedCartItems);
+    return storedCartItems.reduce((total, item) => total + (item.quantity || 0), 0);
+  };
+
+  useEffect(() => {
+    // Load cart items from localStorage when the component mounts
+    calculateTotalQuantity();
+  }, []);*/
+
+  const calculateTotalQuantity = (): number => {
+    const quantity = localStorage.getItem('cartTotalQuantity');
+    return quantity ? parseInt(quantity, 10) : 0;
+  };
+
 
   const tags = Array.from(new Set(restaurant.map(r => r.tag))).sort();
   const names = Array.from(new Set(restaurant.map(r => r.name))).sort();
 
   return (
     <>
-      <div className='my-page'>
-        {loading && (
+            {loading && (
           <div className="page-loader">
             <div className="wrapper">
               <div className="circle"></div>
@@ -106,10 +124,14 @@ const Restaurant: React.FC = () => {
             </div>
           </div>
         )}
+
+{!loading && (
+      <div className='my-page'>
+<Header calculateTotalQuantity={calculateTotalQuantity}/>
         
         <section className="hero-section about gap my-about" >
+          
           <div className="container">
-            <Headerprofile />
             <div className="row align-items-center">
               <div className="col-lg-6" data-aos="fade-up" data-aos-delay="200" data-aos-duration="200">
                 <div className="about-text">
@@ -121,9 +143,7 @@ const Restaurant: React.FC = () => {
                   <h2>Restaurants</h2>
                   <p className='my-text'>Profitez de repas délicieux livrés directement chez vous, préparés avec amour et fraîcheur pour une expérience culinaire exceptionnelle à chaque commande.</p>
                   <div className="restaurant">
-                    <div
-                      className={`nice-select Advice my-search`}
-                    >
+                    <div className={`nice-select Advice my-search`}>
                       <ReactAutocomplete
                         items={tags.map(tag => ({ label: tag })).concat(names.map(name => ({ label: name })))}
                         shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
@@ -136,7 +156,7 @@ const Restaurant: React.FC = () => {
                         value={selectedValue}
                         onChange={e => setSelectedValue(e.target.value)}
                         onSelect={value => setSelectedValue(value)}
-                        inputProps={{ className: 'current', style: { border: 'none', outline: 'none', boxShadow: 'none', width: '466px', paddingLeft: '15px', fontSize: '20px', fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif', color: '#000' } }}
+                        inputProps={{ className: 'current', placeholder: "Entrez un nom ou une spécialité",style: { border: 'none', outline: 'none', boxShadow: 'none', width: '466px', paddingLeft: '15px', fontSize: '20px', fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif', color: '#000' } }}
                         menuStyle={{
                           position: 'absolute',
                           top: '100%',
@@ -179,33 +199,43 @@ const Restaurant: React.FC = () => {
                     data-aos-delay="200"
                     data-aos-duration="1000"
                   >
-                    <div className="logos-card restaurant-page my-frame">
-                      <div className='col-lg-4'>
-                        <img
-                          alt="restaurnImage"
-                          src={restaurant.logoPath}
-                          style={{ width: '125px', height: '125px', objectFit: 'cover' }}
-                        />
-                        <div className="icon-container my-text myaddress-container">
-                          <FontAwesomeIcon icon={faMapMarkerAlt} className='my-icon' /><strong>{restaurant.address}</strong>
-                        </div>
-                        <div className="icon-container my-text">
-                          <FontAwesomeIcon icon={faPhone} className='my-icon' /> <strong>+33 {restaurant.phoneNumber}</strong>
-                        </div>
-                        <div className="icon-container my-text">
-                          <FontAwesomeIcon icon={faClock} className='my-icon' /><strong>{restaurant.openTime} ---  {restaurant.closingTime}</strong>
-                        </div>
-                      </div>
-                      <div className='col-lg-8'>
-                        <div className="cafa my-text">
-                          <h4><a className="my-a" onClick={() => handleViewProduct(restaurant.id)}>{restaurant.name} </a></h4>
-                          <div className="cafa-button">
-                            <strong><a className="end my-a" href="#">{restaurant.tag}</a></strong>
-                          </div>
-                          <p className='my-text mydescription-container'>{restaurant.description}</p>
-                        </div>
-                      </div>
+                  <div className="logos-card restaurant-page my-frame row">
+                    <div className="col-lg-8 order-1 order-lg-2">
+                    <div className="cafa my-text">
+                    <h4>
+                        <a className="my-a" onClick={() => handleViewProduct(restaurant.id , restaurant.userId) }>
+                          {restaurant.name}
+                        </a>
+                    </h4>
+  
+                    <div className="cafa-button">
+                      <strong><a className="end my-a" href="#">{restaurant.tag}</a></strong>
                     </div>
+                    <p className='my-text mydescription-container'>{restaurant.description}</p>
+                  </div>
+                </div>
+
+
+                <div className="col-lg-4 order-2 order-lg-1">
+                  <div style={{height:"125px"}}>
+                  <img
+                    alt="restaurnImage"
+                    src={restaurant.logoPath}
+                    style={{ width: '125px', height: 'auto', objectFit: 'cover' }}
+                  />
+                  </div>
+                  <div className="icon-container my-text myaddress-container">
+                    <FontAwesomeIcon icon={faMapMarkerAlt} className='my-icon' /><strong>{restaurant.address}</strong>
+                  </div>
+                  <div className="icon-container my-text">
+                    <FontAwesomeIcon icon={faPhone} className='my-icon' /> <strong>+33 {restaurant.phoneNumber}</strong>
+                  </div>
+                  <div className="icon-container my-text">
+                    <FontAwesomeIcon icon={faClock} className='my-icon' /><strong>{restaurant.openTime} --- {restaurant.closingTime}</strong>
+                  </div>
+                </div>
+                  </div>
+
                   </div>
                 );
               })}
@@ -213,6 +243,7 @@ const Restaurant: React.FC = () => {
           </div>
         </section>
       </div>
+)}
       <Footer/>
     </>
   );

@@ -4,9 +4,9 @@ import { io, Socket } from 'socket.io-client';
 import { getAuth, signOut } from 'firebase/auth'; // Import Firebase Auth
 import { getFirestore, collection, query, where, getDocs, orderBy } from 'firebase/firestore'; // Import Firestore
 import { db } from '../firebaseConfig'; // Import Firebase config
-import Headerprofile from './haeder'; // Import Headerprofile
 import './notif.css';
 import { timeStamp } from 'console';
+import Header from '../components/header1'; 
 
 interface Notification {
   id: string;
@@ -30,9 +30,13 @@ const NotificationList: React.FC = () => {
   const auth = getAuth();
   const db = getFirestore();
   const [productMap, setProductMap] = useState<Map<string, string>>(new Map()); 
+  const [cartItems, setCartItems] = useState<any[]>([]);
 
 
-
+  const calculateTotalQuantity = (): number => {
+    const quantity = localStorage.getItem('cartTotalQuantity');
+    return quantity ? parseInt(quantity, 10) : 0;
+  };
 
 
   useEffect(() => {
@@ -53,8 +57,9 @@ const NotificationList: React.FC = () => {
         try {
           const usersRef = collection(db, 'notif');
           
-          // First, fetch the documents based on the where clause
-          const q = query(usersRef, where('reviewerName', '==', userName));
+          // First, fetch the documents based on the where 
+          const myuser = localStorage.getItem('userName')
+          const q = query(usersRef, where('reviewerName', '==', myuser));
           const notificationSnapshot = await getDocs(q);
           
           // Then, sort the results in memory by the timestamp
@@ -112,7 +117,7 @@ const NotificationList: React.FC = () => {
 
   return (
     <Container>
-      <Headerprofile />
+      <Header calculateTotalQuantity={calculateTotalQuantity} />
       <Typography variant="h4" gutterBottom style={{ marginTop: 90 }}>
         Notifications for {userName}
       </Typography>

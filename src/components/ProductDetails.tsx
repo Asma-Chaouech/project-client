@@ -5,7 +5,6 @@ import { db } from '../firebaseConfig';
 import { doc, getDoc, updateDoc, arrayUnion, collection, getDocs , query , where} from 'firebase/firestore';
 import { FaShoppingCart } from 'react-icons/fa';
 import '../assets/cssf/ProductDetails.css';
-import Headerprofile from './haederprofil';
 import '../assets/cssf/ProductList.css';
 import Header from './header1';
 import { getAuth } from 'firebase/auth';
@@ -69,6 +68,7 @@ const ProductDetails: React.FC = () => {
   const [mycategory, setCategories] = useState<Category[]>([]);
   const [mysubCategory, setSubCategories] = useState<SubCategory[]>([]);
   const [localQuantity, setLocalQuantity] = useState<number>(1);
+
   
   const [newReview, setNewReview] = useState<{ rating: number; comment: string }>({
     rating: 0,
@@ -146,55 +146,42 @@ const [messageType, setMessageType] = useState<'success' | 'error' | null>(null)
   }, [productId]);
 
   useEffect(() => {
-    const storedCartItems = localStorage.getItem('cartItems');
-    if (storedCartItems) {
-      setCartItems(JSON.parse(storedCartItems));
-      
-    }
+    // Load cart items from localStorage when the component mounts
+    const storedCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+    setCartItems(storedCartItems);
   }, []);
-  
-
   useEffect(() => {
-    const fetchUserData = async () => {
-      const user = auth.currentUser;
-      if (user) {
-        try {
-          const usersRef = collection(db, 'clients');
-          const q = query(usersRef, where('email', '==', user.email));
-          const querySnapshot = await getDocs(q);
-          console.log(user.email)
-
-          if (!querySnapshot.empty) {
-            const userDoc = querySnapshot.docs[0];
-            const data = userDoc.data();
-            setUserName(data.name || 'Account'); // Update the user's name
-            setCartItems(data.cart || []);
-            console.log(userName)
-            
-            // Save user data to localStorage
-            localStorage.setItem('userData', JSON.stringify(data));
-            localStorage.setItem('userDocId', userDoc.id);
-
-            setLoading(false);
-          } else {
-            setError('Utilisateur non trouvé dans Firestore.');
-            setLoading(false);
-          }
-        } catch (error) {
-          setError('Erreur lors de la récupération des données utilisateur.');
-          console.error('Erreur lors de la récupération des données utilisateur:', error);
-          setLoading(false);
-        }
-      } else {
-        setError('Utilisateur non connecté.');
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [auth, db]);
+    console.log('Cart items on load:', cartItems);
+  }, [cartItems]);
 
 
+
+const addToCart = (product: Product, productId: string) => {
+  const cartItems: CartItem[] = JSON.parse(localStorage.getItem('cartItems') || '[]');
+  console.log("mypro",product);
+  
+ 
+  const existingItem = cartItems.find((item: any) => item.productId === product.productId);
+  console.log("exist", existingItem , product.productId)
+  
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cartItems.push({ ...product, quantity: 1 });
+  }
+    // Mettre à jour le panier avec la quantité appropriée
+const updatedCartItems = cartItems.map(item =>
+  item.productId === productId
+    ? { ...item, quantity: item.quantity  }
+    : item
+);
+  localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+  const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+  localStorage.setItem('cartTotalQuantity', JSON.stringify(totalQuantity));
+  setCartItems(updatedCartItems);
+};
 
 
   const handleReviewChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -228,7 +215,7 @@ const [messageType, setMessageType] = useState<'success' | 'error' | null>(null)
   const submitReview = async () => {
     if (!product || !productId) return;
   
-    const currentUser = getCurrentUser(); // Obtenir l'utilisateur actuel
+    const currentUser = localStorage.getItem('userName')//getCurrentUser(); // Obtenir l'utilisateur actuel
   
     if (!newReview.comment.trim()) {
       setMessage('Le commentaire ne peut pas être vide.');
@@ -262,7 +249,7 @@ const [messageType, setMessageType] = useState<'success' | 'error' | null>(null)
   
       // Création du nouvel avis
       const review: Review = {
-        user: userName,
+        user: currentUser || 'account',
         rating: newReview.rating,
         comment: newReview.comment,
         timestamp: new Date().toISOString(),
@@ -270,10 +257,11 @@ const [messageType, setMessageType] = useState<'success' | 'error' | null>(null)
       };
   
       // Ajouter le nouvel avis
+      if (isLoggedIn){
       await updateDoc(productDoc, {
         reviews: arrayUnion(review),
       });
-  
+
       // Mettre à jour la note moyenne
       const updatedReviews = [...existingReviews, review];
       const newAverageRating = calculateAverageRating(updatedReviews);
@@ -290,7 +278,8 @@ const [messageType, setMessageType] = useState<'success' | 'error' | null>(null)
         clientName: currentUser,
         productName: product.productName,
         productId : productId, 
-        type: 'review'
+        type: 'review',
+        resId: localStorage.getItem('resId'),
       };
       console.log(requestBody)
       const response = await fetch('http://localhost:3008/api/add-notification', {
@@ -301,6 +290,11 @@ const [messageType, setMessageType] = useState<'success' | 'error' | null>(null)
         body: JSON.stringify(requestBody),
       });
       console.log('Request body:', JSON.stringify(requestBody, null, 2));
+    }
+    else {
+      setMessage('Vous devez vous conntecter !');
+      setMessageType('error');
+    }
 
     } catch (error) {
       setMessage('Erreur lors de l\'ajout de l\'avis.');
@@ -345,6 +339,7 @@ const [messageType, setMessageType] = useState<'success' | 'error' | null>(null)
   };
 
   const averageRating = product?.averageRating || calculateAverageRating(reviews);
+  const isLoggedIn = localStorage.getItem('userId') !== null;
 
   if (loading) {
     return  <div className="page-loader">
@@ -372,26 +367,12 @@ const [messageType, setMessageType] = useState<'success' | 'error' | null>(null)
       setLocalQuantity(localQuantity - 1);
     }
   };
-  
-  const addToCart = (product: Product) => {
-    const existingCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-    const updatedCartItems = existingCartItems.filter((item: CartItem) => item.productId !== product.productId);
-  
-    if (localQuantity > 0) {
-      updatedCartItems.push({ ...product, quantity: localQuantity });
-    }
-  
-    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
-    setCartItems(updatedCartItems);
-  };
+
+
   const calculateTotalQuantity = () => {
     return cartItems.reduce((totalQuantity, item) => totalQuantity + item.quantity,0);
   };
 
-  
-
-  
-  
   return (
     <div className="product-details-container">
       {loading ? (
@@ -408,7 +389,7 @@ const [messageType, setMessageType] = useState<'success' | 'error' | null>(null)
         </div>
       ) : (
         <>
-       <Header userName={userName} calculateTotalQuantity={calculateTotalQuantity} />
+       <Header calculateTotalQuantity={calculateTotalQuantity} />
 
           <div className="afterheader">
             <ul className="crumbs d-flex">
@@ -452,7 +433,7 @@ const [messageType, setMessageType] = useState<'success' | 'error' | null>(null)
                       <button id={`increase-button-${product.productId}`} className="quantity-button-detail" onClick={increaseQuantity}> + </button>
                      
                     </div>
-                    <div className="icon-box" onClick={() => addToCart(product)}>
+                    <div className="icon-box" onClick={() => addToCart(product, product.productId)}>
                          <FaShoppingCart />
                     </div>
                     

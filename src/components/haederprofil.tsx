@@ -59,8 +59,9 @@ const Headerprofile: React.FC = () => {
       await signOut(auth); // Sign the user out
       localStorage.removeItem('userId'); // Clear the user ID from local storage
       localStorage.removeItem('cartItems'); // Clear the cart items from local storage
+      localStorage.removeItem('userName'); // Clear the cart items from local storage
       setCartItems([]); // Clear the cart items in the state
-      navigate('/login'); // Redirect to the LandingPage after logout
+      navigate('/about'); // Redirect to the LandingPage after logout
     } catch (error) {
       console.error('Erreur lors de la déconnexion:', error);
     }
@@ -175,7 +176,7 @@ const handleNotificationClick = async () => {
         <div className="col-xl-2">
         
           <div className="header-style">
-            <Link to="/ProductList">
+            <Link to="/about">
               <img
                 src="https://firebasestorage.googleapis.com/v0/b/deliverysitem-4dcc6.appspot.com/o/image%202.png?alt=media&token=36ee4647-68e8-4620-b7ac-b6af3f1fc996"
                 alt="Logo"
@@ -195,7 +196,7 @@ const handleNotificationClick = async () => {
         </div>
         <div className="col-lg-7">
           <nav className={`navbar ${isMenuOpen ? 'open' : ''}`}>
-            <Link to="/ProductList">Accueil</Link>
+            <Link to="/about">Accueil</Link>
             <Link to="/restaurants">Restaurants</Link>
             
           </nav>

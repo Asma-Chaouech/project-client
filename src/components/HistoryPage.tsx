@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 import Headerprofile from './haederprofil';
+import Header from './header1';
 
 interface Item {
   productName: string;
@@ -153,12 +154,16 @@ const HistoryPage: React.FC = () => {
   const toggleDetail = (orderId: string) => {
     setActiveDetail(activeDetail === orderId ? null : orderId);
   };
+  const calculateTotalQuantity = (): number => {
+    const quantity = localStorage.getItem('cartTotalQuantity');
+    return quantity ? parseInt(quantity, 10) : 0;
+  };
 
   return (
     
     <div className="history-page">
       
-      <Headerprofile />
+      <Header calculateTotalQuantity={calculateTotalQuantity}/>
       <div className="history-container">
         <div className="history-header">
           <h4>Historique des Commandes</h4>

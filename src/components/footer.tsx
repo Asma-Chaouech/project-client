@@ -11,6 +11,7 @@ import '../assets/cssf/color.css';
 import '../assets/cssf/footer.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import logo from '../assets/imgf/logo-SITEM.webp';
 
 const Footer: React.FC = () => {
   return (
@@ -20,12 +21,13 @@ const Footer: React.FC = () => {
           <div className="col-lg-5 col-md-6 col-sm-12">
             <div className="footer-description">
               <a href="index.html">
-              <Link to="/ProductList">
+              <Link to="/about">
           <img
-            src="https://firebasestorage.googleapis.com/v0/b/deliverysitem-4dcc6.appspot.com/o/image%202.png?alt=media&token=36ee4647-68e8-4620-b7ac-b6af3f1fc996"
+            src={logo}
             alt="Logo"
-            width="163"
-            height="38"
+            width="225"
+            height="100"
+            style={{position:"absolute",left:"40px",top:"15px"}}
           />
         </Link>
               </a>
@@ -36,10 +38,9 @@ const Footer: React.FC = () => {
             <div className="menu">
               <h4>Menu</h4>
               <ul className="footer-menu">
-                <li><a href="index.html">Accueil<i className="fa-solid fa-arrow-right"></i></a></li>
-                <li><a href="about.html">À propos<i className="fa-solid fa-arrow-right"></i></a></li>
-                <li><a href="restaurants.html">Restaurants<i className="fa-solid fa-arrow-right"></i></a></li>
-                <li><a href="contacts.html">Contacts<i className="fa-solid fa-arrow-right"></i></a></li>
+                <li><a href="/about">Accueil<i className="fa-solid fa-arrow-right"></i></a></li>
+                <li><a href="/restaurants">Restaurants<i className="fa-solid fa-arrow-right"></i></a></li>
+                <li><a href="//contact">Contacts<i className="fa-solid fa-arrow-right"></i></a></li>
               </ul>
             </div>
           </div>

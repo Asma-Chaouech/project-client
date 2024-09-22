@@ -1,0 +1,203 @@
+.my-header-buton{
+    text-align: center;
+    color: #C67C00;
+    text-transform: uppercase;
+    display: inline-block;
+    font-size: 16px;
+    padding: 0 25px;
+    border-radius: 10px;
+    height: 35px;
+    line-height: 35px;
+}
+.my-header-button1{
+    color: #F29F05;
+    border: 2px solid #F29F05;
+    width: fit-content;
+    text-align: center;
+    border-radius: 10px;
+    
+}
+/* Styles par défaut */
+.col-lg-5, .col-lg-2 {
+    flex: 4;
+    text-align: right;
+  }
+  
+  .navbar {
+    display: block; /* Affiche le menu de navigation par défaut */
+  }
+  
+  .header-extras {
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .login-signup-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 0;
+  }
+  
+  .profile-dropdown {
+    display: flex;
+    justify-content: flex-start;
+    margin-right: 0;
+  }
+  
+  .dropdown-menu {
+    right: auto;
+    top: auto;
+    position: static;
+  }
+  
+  /* Media queries pour écrans de largeur maximale de 480px */
+  @media (max-width: 480px) {
+    .col-lg-5, .col-lg-2 {
+        flex: 4;
+        text-align: right;
+        display: flex; /* Utiliser flexbox pour gérer l'alignement */
+        flex-direction: row; /* Aligner les éléments horizontalement */
+        justify-content: flex-end; /* Aligner les éléments à droite */
+        align-items: center; /* Centrer verticalement les éléments */
+      }
+    
+  
+    .navbar {
+      display: none; /* Cache le menu de navigation pour les petits écrans */ 
+    }
+  
+    .header-extras {
+      display: flex;
+      justify-content: flex-end;
+    }
+  
+    .login-signup-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-right: 15px;
+    }
+  
+    .profile-dropdown {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 15px;
+    }
+  
+    .dropdown-menu {
+      right: 0;
+      top: 100%;
+      position: absolute;
+    }
+  }
+  
+  /* Media queries pour écrans de largeur maximale de 720px */
+  @media (max-width: 720px) {
+    .col-lg-5, .col-lg-2 {
+      flex: 4;
+      text-align: right;
+    }
+  
+    .navbar {
+      display: none; /* Cache le menu de navigation pour les petits écrans */ 
+    }
+  
+    .header-extras {
+      display: flex;
+      justify-content: flex-end;
+    }
+  
+    .login-signup-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-right: 15px;
+    }
+  
+    .profile-dropdown {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 15px;
+    }
+  
+    .dropdown-menu {
+      right: 0;
+      top: 100%;
+      position: absolute;
+    }
+  }
+  
+  /* Media queries pour écrans de largeur maximale de 768px */
+  @media (max-width: 768px) {
+    .col-lg-5, .col-lg-2 {
+      flex: 4;
+      text-align: right;
+    }
+  
+    .navbar {
+      display: none; /* Cache le menu de navigation pour les petits écrans */ 
+    }
+  
+    .header-extras {
+      display: flex;
+      justify-content: flex-end;
+    }
+  
+    .login-signup-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-right: 15px;
+    }
+  
+    .profile-dropdown {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 15px;
+    }
+  
+    .dropdown-menu {
+      right: 0;
+      top: 100%;
+      position: absolute;
+    }
+  }
+  
+  /* Media queries pour écrans de largeur maximale de 992px */
+  @media (max-width: 992px) {
+    .col-lg-5, .col-lg-2 {
+      flex: 4;
+      text-align: right;
+    }
+  
+    .navbar {
+      display: none; /* Cache le menu de navigation pour les petits écrans */ 
+    }
+  
+    .header-extras {
+      display: flex;
+      justify-content: flex-end;
+    }
+  
+    .login-signup-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-right: 15px;
+    }
+  
+    .profile-dropdown {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 15px;
+    }
+  
+    .dropdown-menu {
+      right: 0;
+      top: 100%;
+      position: absolute;
+    }
+  }
+  
+  

@@ -41,11 +41,14 @@ const Login: React.FC = () => {
       }
 
       let isBlocked = false;
+      let userName = '';
 
       // Vérifier le statut bloqué et mettre à jour le mot de passe dans Firestore si nécessaire
       for (const docSnapshot of querySnapshot.docs) {
         const userData = docSnapshot.data();
         isBlocked = userData.blocked || false;
+        userName = userData.name || '';
+        console.log(userData)
 
         if (userData.password !== password) {
           // Mettre à jour le mot de passe dans Firestore
@@ -62,6 +65,10 @@ const Login: React.FC = () => {
 
       setSuccess('Connexion réussie.');
       localStorage.setItem('userId', auth.currentUser?.uid || '');
+      localStorage.setItem('userName', userName || ''); 
+
+
+
       navigate('/AddressPage'); // Redirige vers la page d'adresse
     } catch (error) {
       setError('Échec de la connexion. Veuillez vérifier vos identifiants.');
